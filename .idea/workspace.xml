@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3ac16e69-b207-4a57-aa2f-f912c29212ed" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/AugmentWebviewStateStore.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/binance_public_data.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/binance_public_data2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/seaborn/_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/seaborn/_base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/seaborn/_compat.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/seaborn/_compat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/seaborn/_core/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/seaborn/_core/plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/seaborn/axisgrid.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/seaborn/axisgrid.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/seaborn/categorical.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/seaborn/categorical.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/seaborn/distributions.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/seaborn/distributions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/seaborn/matrix.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/seaborn/matrix.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/seaborn/miscplot.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/seaborn/miscplot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/seaborn/palettes.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/seaborn/palettes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/seaborn/regression.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/seaborn/regression.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/seaborn/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/seaborn/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/seaborn/widgets.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/seaborn/widgets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/tests/_core/test_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/tests/_core/test_plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/tests/_marks/test_bar.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/tests/_marks/test_bar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/tests/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/tests/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/tests/test_distributions.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/tests/test_distributions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/tests/test_miscplot.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/tests/test_miscplot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/tests/test_palettes.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/tests/test_palettes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/tests/test_rcmod.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/tests/test_rcmod.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seaborn-v4_2/tests/test_regression.py" beforeDir="false" afterPath="$PROJECT_DIR$/seaborn-v4_2/tests/test_regression.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2xJ3IGWRKG1vPQ2zI6OzgoBFQI7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/Documents/GitHub/simulate-small-repo-v5&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3ac16e69-b207-4a57-aa2f-f912c29212ed" name="Changes" comment="" />
+      <created>1747642267862</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747642267862</updated>
+      <workItem from="1747642269084" duration="384000" />
+      <workItem from="1747646716540" duration="3419000" />
+      <workItem from="1747652334775" duration="105000" />
+      <workItem from="1747652511153" duration="14000" />
+      <workItem from="1747652849471" duration="42000" />
+      <workItem from="1747652915297" duration="624000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="binance_public_data">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/freqtrade-v2_2/tests/testdata/binance/binance_public_data/futures-um-klines-BTCUSDT-1h-2024-10-28.zip!/" />
+      <root url="jar://$PROJECT_DIR$/freqtrade-v2_2/tests/testdata/binance/binance_public_data/spot-klines-BTCUSDT-1h-2024-10-28.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
