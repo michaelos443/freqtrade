@@ -1,0 +1,22 @@
+{
+  "channels": ["console", "telegram"],
+  "profit_threshold": 5.0,
+  "loss_threshold": -3.0,
+  "volume_spike": 2.0,
+  "max_alerts_per_hour": 10,
+  "telegram": {
+    "bot_token": "YOUR_BOT_TOKEN",
+    "chat_id": "YOUR_CHAT_ID"
+  },
+  "email": {
+    "smtp_server": "smtp.gmail.com",
+    "smtp_port": 587,
+    "sender": "your-email@gmail.com",
+    "password": "your-app-password",
+    "recipients": ["recipient@example.com"]
+  },
+  "discord": {
+    "webhook_url": "YOUR_DISCORD_WEBHOOK_URL"
+  }
+}
+
