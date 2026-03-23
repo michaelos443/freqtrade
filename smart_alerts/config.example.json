@@ -4,6 +4,8 @@
   "loss_threshold": -3.0,
   "volume_spike": 2.0,
   "max_alerts_per_hour": 10,
+  "enable_deduplication": true,
+  "dedup_window_minutes": 5,
   "telegram": {
     "bot_token": "YOUR_BOT_TOKEN",
     "chat_id": "YOUR_CHAT_ID"

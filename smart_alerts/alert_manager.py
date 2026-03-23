@@ -4,8 +4,9 @@ Sends intelligent notifications via multiple channels
 """
 from enum import Enum
 from typing import Dict, List, Optional
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
+import hashlib
 
 
 class AlertLevel(Enum):
@@ -53,12 +54,16 @@ class Alert:
 
 class SmartAlertManager:
     """Manages and routes alerts to appropriate channels"""
-    
+
     def __init__(self, config: Optional[Dict] = None):
         self.config = config or {}
         self.enabled_channels = self._load_channels()
         self.alert_history: List[Alert] = []
         self.alert_rules = self._load_rules()
+        # Smart filtering attributes
+        self.alert_fingerprints: Dict[str, datetime] = {}
+        self.dedup_window = timedelta(minutes=self.config.get("dedup_window_minutes", 5))
+        self.enable_deduplication = self.config.get("enable_deduplication", True)
     
     def _load_channels(self) -> List[AlertChannel]:
         """Load enabled notification channels from config"""
@@ -73,6 +78,33 @@ class SmartAlertManager:
             "volume_spike_threshold": self.config.get("volume_spike", 2.0),
             "max_alerts_per_hour": self.config.get("max_alerts_per_hour", 10)
         }
+
+    def _generate_fingerprint(self, title: str, message: str, level: AlertLevel) -> str:
+        """Generate unique fingerprint for alert deduplication"""
+        content = f"{title}|{message}|{level.value}"
+        return hashlib.md5(content.encode()).hexdigest()
+
+    def _is_duplicate(self, fingerprint: str) -> bool:
+        """Check if alert is a duplicate within the deduplication window"""
+        if not self.enable_deduplication:
+            return False
+
+        if fingerprint in self.alert_fingerprints:
+            last_sent = self.alert_fingerprints[fingerprint]
+            if datetime.now() - last_sent < self.dedup_window:
+                return True
+
+        return False
+
+    def _cleanup_old_fingerprints(self):
+        """Remove expired fingerprints from tracking"""
+        current_time = datetime.now()
+        expired = [
+            fp for fp, timestamp in self.alert_fingerprints.items()
+            if current_time - timestamp >= self.dedup_window
+        ]
+        for fp in expired:
+            del self.alert_fingerprints[fp]
     
     def send_alert(
         self,
@@ -80,15 +112,44 @@ class SmartAlertManager:
         message: str,
         level: AlertLevel = AlertLevel.INFO,
         metadata: Optional[Dict] = None,
-        channels: Optional[List[AlertChannel]] = None
+        channels: Optional[List[AlertChannel]] = None,
+        bypass_dedup: bool = False
     ) -> bool:
-        """Send an alert through specified channels"""
+        """Send an alert through specified channels
+
+        Args:
+            title: Alert title
+            message: Alert message
+            level: Alert severity level
+            metadata: Additional alert data
+            channels: Target channels (defaults to all enabled)
+            bypass_dedup: Skip deduplication check (for critical alerts)
+
+        Returns:
+            bool: True if alert was sent successfully
+        """
+        # Generate fingerprint for deduplication
+        fingerprint = self._generate_fingerprint(title, message, level)
+
+        # Check for duplicates (unless bypassed or critical)
+        if not bypass_dedup and level != AlertLevel.CRITICAL:
+            if self._is_duplicate(fingerprint):
+                print(f"[DEDUP] Skipping duplicate alert: {title}")
+                return False
+
+        # Cleanup old fingerprints periodically
+        self._cleanup_old_fingerprints()
+
+        # Create and store alert
         alert = Alert(title, message, level, metadata)
         self.alert_history.append(alert)
-        
+
+        # Update fingerprint timestamp
+        self.alert_fingerprints[fingerprint] = datetime.now()
+
         # Use specified channels or default to all enabled
         target_channels = channels or self.enabled_channels
-        
+
         success = True
         for channel in target_channels:
             try:
@@ -96,7 +157,7 @@ class SmartAlertManager:
             except Exception as e:
                 print(f"Failed to send alert to {channel.value}: {e}")
                 success = False
-        
+
         return success
     
     def _send_to_channel(self, alert: Alert, channel: AlertChannel):
@@ -137,4 +198,13 @@ class SmartAlertManager:
     def get_recent_alerts(self, limit: int = 10) -> List[Dict]:
         """Get recent alerts"""
         return [alert.to_dict() for alert in self.alert_history[-limit:]]
+
+    def get_dedup_stats(self) -> Dict:
+        """Get deduplication statistics"""
+        return {
+            "active_fingerprints": len(self.alert_fingerprints),
+            "dedup_enabled": self.enable_deduplication,
+            "dedup_window_minutes": self.dedup_window.total_seconds() / 60,
+            "total_alerts_sent": len(self.alert_history)
+        }
 
