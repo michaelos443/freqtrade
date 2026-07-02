@@ -4,7 +4,7 @@ Sends intelligent notifications via multiple channels
 """
 from enum import Enum
 from typing import Dict, List, Optional
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 import json
 import hashlib
 
@@ -64,6 +64,11 @@ class SmartAlertManager:
         self.alert_fingerprints: Dict[str, datetime] = {}
         self.dedup_window = timedelta(minutes=self.config.get("dedup_window_minutes", 5))
         self.enable_deduplication = self.config.get("enable_deduplication", True)
+        # Scheduling attributes
+        self.quiet_hours_enabled = self.config.get("quiet_hours_enabled", False)
+        self.quiet_hours_start = self._parse_time(self.config.get("quiet_hours_start", "22:00"))
+        self.quiet_hours_end = self._parse_time(self.config.get("quiet_hours_end", "07:00"))
+        self.scheduled_alerts: List[Alert] = []
     
     def _load_channels(self) -> List[AlertChannel]:
         """Load enabled notification channels from config"""
@@ -78,6 +83,29 @@ class SmartAlertManager:
             "volume_spike_threshold": self.config.get("volume_spike", 2.0),
             "max_alerts_per_hour": self.config.get("max_alerts_per_hour", 10)
         }
+
+    def _parse_time(self, time_str: str) -> time:
+        """Parse time string (HH:MM format) to time object"""
+        try:
+            hour, minute = map(int, time_str.split(':'))
+            return time(hour, minute)
+        except (ValueError, AttributeError):
+            return time(22, 0)  # Default to 10 PM
+
+    def _is_quiet_hours(self, check_time: Optional[datetime] = None) -> bool:
+        """Check if current time is within quiet hours"""
+        if not self.quiet_hours_enabled:
+            return False
+
+        current = (check_time or datetime.now()).time()
+        start = self.quiet_hours_start
+        end = self.quiet_hours_end
+
+        # Handle overnight quiet hours (e.g., 22:00 to 07:00)
+        if start > end:
+            return current >= start or current < end
+        else:
+            return start <= current < end
 
     def _generate_fingerprint(self, title: str, message: str, level: AlertLevel) -> str:
         """Generate unique fingerprint for alert deduplication"""
@@ -140,8 +168,17 @@ class SmartAlertManager:
         # Cleanup old fingerprints periodically
         self._cleanup_old_fingerprints()
 
-        # Create and store alert
+        # Create alert
         alert = Alert(title, message, level, metadata)
+
+        # Check quiet hours (Critical alerts bypass quiet hours)
+        if self._is_quiet_hours() and level != AlertLevel.CRITICAL:
+            print(f"[QUIET HOURS] Scheduling alert for later: {title}")
+            self.scheduled_alerts.append(alert)
+            self.alert_history.append(alert)
+            return True  # Alert scheduled successfully
+
+        # Store alert in history
         self.alert_history.append(alert)
 
         # Update fingerprint timestamp
@@ -206,5 +243,42 @@ class SmartAlertManager:
             "dedup_enabled": self.enable_deduplication,
             "dedup_window_minutes": self.dedup_window.total_seconds() / 60,
             "total_alerts_sent": len(self.alert_history)
+        }
+
+    def process_scheduled_alerts(self) -> int:
+        """Process and send scheduled alerts if quiet hours have ended
+
+        Returns:
+            int: Number of alerts sent
+        """
+        if self._is_quiet_hours() or not self.scheduled_alerts:
+            return 0
+
+        sent_count = 0
+        alerts_to_send = self.scheduled_alerts.copy()
+        self.scheduled_alerts.clear()
+
+        for alert in alerts_to_send:
+            target_channels = self.enabled_channels
+            for channel in target_channels:
+                try:
+                    self._send_to_channel(alert, channel)
+                    sent_count += 1
+                except Exception as e:
+                    print(f"Failed to send scheduled alert to {channel.value}: {e}")
+
+        if sent_count > 0:
+            print(f"[SCHEDULED] Sent {sent_count} scheduled alerts")
+
+        return sent_count
+
+    def get_scheduling_stats(self) -> Dict:
+        """Get quiet hours and scheduling statistics"""
+        return {
+            "quiet_hours_enabled": self.quiet_hours_enabled,
+            "quiet_hours_start": self.quiet_hours_start.strftime("%H:%M"),
+            "quiet_hours_end": self.quiet_hours_end.strftime("%H:%M"),
+            "is_currently_quiet_hours": self._is_quiet_hours(),
+            "scheduled_alerts_count": len(self.scheduled_alerts)
         }
 
